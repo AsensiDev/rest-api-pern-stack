@@ -1,31 +1,25 @@
 import express from 'express'
+import colors from 'colors'
+import router from './router'
+import db from './config/db'
+
+//conectar a base de datos
+async function connectDB() {
+    try {
+        await db.authenticate()
+        db.sync()
+        console.log( colors.bgGreen.bold('Conexión exitosa a la DB'))
+    } catch (error) {
+        // console.log(error)
+        console.log( colors.bgRed.bold('Hubo un error al conectar a la BD'))
+    }
+}
+connectDB()
 
 const server = express()
 
-// routing
-server.get('/', (req, res) => {
+server.use('/api/products', router)
 
-    res.json('desde get')
-})
 
-server.post('/', (req, res) => {
-
-    res.json('desde post')
-})
-
-server.put('/', (req, res) => {
-
-    res.json('desde put')
-})
-
-server.patch('/', (req, res) => {
-
-    res.json('desde patch')
-})
-
-server.delete('/', (req, res) => {
-
-    res.json('desde delete')
-})
 
 export default server
