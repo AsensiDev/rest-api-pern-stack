@@ -6,6 +6,8 @@
         "strict": false, // si estuviera en true no permitiría tipar con any
         "sourceMap": true, // añade el .map de cada archivo compilado
         "esModuleInterop": true,
-        "declaration": true // crea archivo de declarion de ts
+        "declaration": true, // crea archivo de declarion de ts
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true
     },"include": ["src/**/*.ts"] // todos los archivos incluidos en la compilación
 }
