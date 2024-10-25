@@ -1,7 +1,7 @@
 import express from 'express'
 import colors from 'colors'
-import router from './router'
-import db from './config/db'
+import router from './router.ts'
+import db from './config/db.ts'
 
 //conectar a base de datos
 async function connectDB() {
@@ -16,7 +16,12 @@ async function connectDB() {
 }
 connectDB()
 
+// instancia de express
 const server = express()
+
+// leer datos de formularios
+server.use(express.json())
+
 
 server.use('/api/products', router)
 
