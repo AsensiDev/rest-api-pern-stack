@@ -1,27 +1,27 @@
+// src/config/db.ts
 import { Sequelize } from 'sequelize-typescript';
 import dotenv from 'dotenv';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import Product from '../models/Product.model.ts'; // Importa directamente el modelo
+import Product from '../models/Product.model.ts'; // Omit .ts extension
+import { __dirname } from './pathUtils.ts'; // Import __dirname from the utility file
 
-// Carga las variables de entorno
+// Load environment variables
 dotenv.config();
 
-// Necesario para obtener el directorio actual en ES Modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Configura Sequelize
+// Configure Sequelize
 const db = new Sequelize(process.env.DATABASE_URL || '', {
-  dialect: 'mysql', // O el que estés usando (postgres, sqlite, etc.)
-  models: [Product], // Registra los modelos directamente en lugar de usar rutas
-  logging: false, // Deshabilitar logging si no lo necesitas
+  dialect: 'postgres', // Or your chosen dialect (postgres, sqlite, etc.)
+  models: [Product], // Register models directly
+  logging: false,    // Disable logging if not needed
 });
 
-// Sincroniza la base de datos
-db.sync()
-  .then(() => console.log('Conectado a la base de datos'))
-  .catch((err) => console.error('Error al conectar con la base de datos:', err));
-
-// Exporta la conexión a la base de datos
+// Sync the database
+export const connectDB = async () => {
+  try {
+    await db.sync(); // Wait for the database sync to complete
+    console.log('Connected to the database'); // Log success message
+  } catch (err) {
+    console.error('Database connection error:', err); // Log error message
+  }
+};
+// Export the database connection
 export default db;

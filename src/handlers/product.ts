@@ -10,27 +10,28 @@ export const getProducts = async (req: Request, res: Response) => {
     }
 }
 
-export const getProductById = async (req: Request, res: Response) => {
+export const getProductById = async (req: Request, res: Response): Promise<void> => {
     try {
         const { id } = req.params
         const product = await Product.findByPk(id)
 
-        if(!product) {
-            return res.status(404).json({
-                error: 'Producto no encontrado'
-            })
+        if (!product) {
+            res.status(404).json({ error: 'Producto no encontrado' })
+            return
         }
 
-        res.json({data: product})
+        res.json({ data: product })
     } catch (error) {
-        console.log(error)
+        console.error(error)
+        res.status(500).json({ error: 'Internal server error' })
     }
 }
+
 
 export const createProduct = async (req : Request, res : Response) => {
     try {
         const product = await Product.create(req.body)
-        res.json({data: product})
+        res.status(201).json({data: product})
     } catch (error) {
         console.log(error)
     }
@@ -42,9 +43,8 @@ export const updateProduct = async (req:Request, res: Response) => {
     const product = await Product.findByPk(id)
 
     if(!product) {
-        return res.status(404).json({
-            error: 'Producto no encontrado'
-        })
+        res.status(404).json({error: 'Producto no encontrado'})
+        return
     }
 
     // update product
@@ -61,9 +61,8 @@ export const updateAvailability = async (req:Request, res: Response) => {
     const product = await Product.findByPk(id)
 
     if(!product) {
-        return res.status(404).json({
-            error: 'Producto no encontrado'
-        })
+        res.status(404).json({error: 'Producto no encontrado'})
+        return
     }
 
     // update product
@@ -80,9 +79,8 @@ export const deleteProduct = async (req: Request, res: Response) => {
     const product = await Product.findByPk(id)
 
     if(!product) {
-        return res.status(404).json({
-            error: 'Producto no encontrado'
-        })
+        res.status(404).json({error: 'Producto no encontrado'})
+        return
     }
 
     // remove product
