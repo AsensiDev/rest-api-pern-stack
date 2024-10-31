@@ -16,12 +16,10 @@ const db = new Sequelize(process.env.DATABASE_URL || '', {
 
 // Sync the database
 export const connectDB = async () => {
-  try {
-    await db.sync(); // Wait for the database sync to complete
-    console.log('Connected to the database'); // Log success message
-  } catch (err) {
-    console.error('Database connection error:', err); // Log error message
-  }
+    
+  await db.sync(); // Wait for the database sync to complete
+  console.log('Connected to the database'); // Log success message
+  
 };
 // Export the database connection
 export default db;
