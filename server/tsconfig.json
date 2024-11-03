@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist", // compila los archivos dentro de esta carpeta
+        "rootDir": "./src", // coge como referencia esta ruta para compilar 
+        "lib": ["esnext"],
+        "target": "ESNext",
+        "moduleResolution": "NodeNext",
+        "module": "NodeNext",
+        "strict": false, // si estuviera en true no permitiría tipar con any
+        "sourceMap": true, // añade el .map de cada archivo compilado
+        "esModuleInterop": true,
+        "allowImportingTsExtensions": true,
+        "noEmit": true,
+        "declaration": true, // crea archivo de declarion de ts
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true
+    },"include": ["src/**/*.ts"] // todos los archivos incluidos en la compilación
+}
